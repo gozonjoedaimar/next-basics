@@ -1,7 +1,6 @@
 import Link from "@/app/component/link/default";
 import Header from "@/app/component/section/header";
 import { Metadata } from "next";
-import Head from "next/head";
 
 const title = "Home";
 
