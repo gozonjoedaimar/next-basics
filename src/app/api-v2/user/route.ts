@@ -1,7 +1,9 @@
-import dbConnect, { closeConnection } from '@/utils/dbconn';
+import dbConnect, { closeDBConnection } from '@/utils/dbconn';
 import User from '@/models/user';
 
-export const dynamic = 'force-dynamic' // defaults to force-static
+// defaults to force-static
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: Request) {
    // connect to db
    await dbConnect();
@@ -9,8 +11,10 @@ export async function GET(request: Request) {
    // get users
    let users = await User.find().lean().exec();
 
-   // close connection
-   closeConnection();
+   // close connection after use
+   closeDBConnection();
+
+   // return users
    return Response.json({
       users
    });
