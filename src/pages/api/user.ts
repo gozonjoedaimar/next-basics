@@ -9,5 +9,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
    // get users
    let users = await User.find().lean().exec();
 
-   res.status(200).json({ users });
+   res.status(200).json({ users, route: 'page' });
 }

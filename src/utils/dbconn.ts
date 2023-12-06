@@ -4,11 +4,23 @@ import { NextApiResponse } from "next";
 let db: typeof mongoose | null = null;
 
 async function dbConnect(res: NextApiResponse | null = null) {
-  // connect to mongodb
-  db = await mongoose.connect('mongodb://adminUser:authp5ss3d@localhost:27016/m1db');
+  if (db) {
+    // console.log('DB already connected');
+    return;
+  }
 
-  // for NextApiResponse
-  handleRes(res);
+  try {
+    // connect to mongodb
+    db = await mongoose.connect('mongodb://adminUser:authp5ss3d@localhost:27016/m1db');
+    // console.log('Database connected');
+  
+    // for NextApiResponse
+    // handleRes(res);
+  }
+  catch (e) {
+    console.log('db connection error', e);
+    db = null;
+  }
 }
 
 // Handle NextApiResponse
@@ -20,7 +32,10 @@ function handleRes(res: NextApiResponse | null = null)
 }
 
 export function closeDBConnection() {
-  if (db) db.disconnect();
+  if (db)  {
+    db.disconnect();
+    db = null;
+  }
   console.log('db disconnected');
 }
 

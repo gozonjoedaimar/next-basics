@@ -11,11 +11,9 @@ export async function GET(request: Request) {
    // get users
    let users = await User.find().lean().exec();
 
-   // close connection after use
-   closeDBConnection();
-
    // return users
    return Response.json({
-      users
+      users,
+      route: 'app'
    });
 }
